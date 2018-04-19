@@ -1,0 +1,29 @@
+﻿@model HomeViewModel
+
+    <!--
+        View folder 
+        1. _ViewStart - execute whatever present there
+        2. _Layout - shared folder will be included if only added in _viewStart
+                    by default searched in shared folder!
+        3. render your code in place of atRate-RenderBody
+    -->
+<h2>@Model.Title</h2>
+
+@foreach (var pie in Model.Pies)
+{
+    <div class="col-sm-4 col-lg-4 col-md-4">
+        <div class="thumbnail">
+            <img src="@pie.ImageThumbnailUrl" alt="">
+            <div class="caption">
+                <h3 class="pull-right">@pie.Price.ToString("c")</h3>
+                <h3>
+                    <a asp-controller="Home" asp-action="Details"
+                       asp-route-id="@pie.Id">@pie.Name</a>
+                </h3>
+                <p>@pie.ShortDescription</p>
+            </div>
+        </div>
+    </div>
+
+}
+
