@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using BethanysPieShop.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace BethanysPieShop
 {
@@ -32,6 +33,8 @@ namespace BethanysPieShop
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
             /*Since we need MockPieRepo from multiple location
             // we will provide it(MockRepository) to dependecy container
             // by registering following code
@@ -53,6 +56,8 @@ namespace BethanysPieShop
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
+
+            app.UseAuthentication();
             /* to add custom routes
                 template is because we want it to match the incoming request..
                 can add multiple using routes.MapRoute function
